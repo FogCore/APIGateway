@@ -1,0 +1,9 @@
+**/*.proto
+**/.DS_Store
+**/.idea
+**/__pycache__
+**/README.md
+/Dockerfile
+/.dockerignore
+/.git
+/.gitignore
