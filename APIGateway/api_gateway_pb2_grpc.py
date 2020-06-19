@@ -5,7 +5,7 @@ from APIGateway import api_gateway_pb2 as APIGateway_dot_api__gateway__pb2
 
 
 class UsersAPIStub(object):
-    """Методы Users Service, которыми пользуется API Gateway
+    """Users Service methods used by the API Gateway
     """
 
     def __init__(self, channel):
@@ -34,10 +34,20 @@ class UsersAPIStub(object):
                 request_serializer=APIGateway_dot_api__gateway__pb2.User.SerializeToString,
                 response_deserializer=APIGateway_dot_api__gateway__pb2.ResponseWithUser.FromString,
                 )
+        self.UpdateUserData = channel.unary_unary(
+                '/UsersAPI/UpdateUserData',
+                request_serializer=APIGateway_dot_api__gateway__pb2.User.SerializeToString,
+                response_deserializer=APIGateway_dot_api__gateway__pb2.ResponseWithUser.FromString,
+                )
+        self.UpdatePassword = channel.unary_unary(
+                '/UsersAPI/UpdatePassword',
+                request_serializer=APIGateway_dot_api__gateway__pb2.User.SerializeToString,
+                response_deserializer=APIGateway_dot_api__gateway__pb2.Response.FromString,
+                )
 
 
 class UsersAPIServicer(object):
-    """Методы Users Service, которыми пользуется API Gateway
+    """Users Service methods used by the API Gateway
     """
 
     def IsExist(self, request, context):
@@ -59,6 +69,18 @@ class UsersAPIServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Info(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateUserData(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdatePassword(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -87,6 +109,16 @@ def add_UsersAPIServicer_to_server(servicer, server):
                     request_deserializer=APIGateway_dot_api__gateway__pb2.User.FromString,
                     response_serializer=APIGateway_dot_api__gateway__pb2.ResponseWithUser.SerializeToString,
             ),
+            'UpdateUserData': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateUserData,
+                    request_deserializer=APIGateway_dot_api__gateway__pb2.User.FromString,
+                    response_serializer=APIGateway_dot_api__gateway__pb2.ResponseWithUser.SerializeToString,
+            ),
+            'UpdatePassword': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdatePassword,
+                    request_deserializer=APIGateway_dot_api__gateway__pb2.User.FromString,
+                    response_serializer=APIGateway_dot_api__gateway__pb2.Response.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'UsersAPI', rpc_method_handlers)
@@ -95,7 +127,7 @@ def add_UsersAPIServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class UsersAPI(object):
-    """Методы Users Service, которыми пользуется API Gateway
+    """Users Service methods used by the API Gateway
     """
 
     @staticmethod
@@ -162,9 +194,41 @@ class UsersAPI(object):
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
+    @staticmethod
+    def UpdateUserData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/UsersAPI/UpdateUserData',
+            APIGateway_dot_api__gateway__pb2.User.SerializeToString,
+            APIGateway_dot_api__gateway__pb2.ResponseWithUser.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdatePassword(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/UsersAPI/UpdatePassword',
+            APIGateway_dot_api__gateway__pb2.User.SerializeToString,
+            APIGateway_dot_api__gateway__pb2.Response.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
 
 class ImagesAPIStub(object):
-    """Методы Images Service, которыми пользуется API Gateway
+    """Images Service methods used by the API Gateway
     """
 
     def __init__(self, channel):
@@ -191,7 +255,7 @@ class ImagesAPIStub(object):
 
 
 class ImagesAPIServicer(object):
-    """Методы Images Service, которыми пользуется API Gateway
+    """Images Service methods used by the API Gateway
     """
 
     def List(self, request, context):
@@ -238,7 +302,7 @@ def add_ImagesAPIServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class ImagesAPI(object):
-    """Методы Images Service, которыми пользуется API Gateway
+    """Images Service methods used by the API Gateway
     """
 
     @staticmethod
@@ -291,7 +355,7 @@ class ImagesAPI(object):
 
 
 class CloudletsAPIStub(object):
-    """Методы Cloudlets Service, которыми пользуется API Gateway
+    """Cloudlets Service methods used by the API Gateway
     """
 
     def __init__(self, channel):
@@ -308,7 +372,7 @@ class CloudletsAPIStub(object):
 
 
 class CloudletsAPIServicer(object):
-    """Методы Cloudlets Service, которыми пользуется API Gateway
+    """Cloudlets Service methods used by the API Gateway
     """
 
     def Find(self, request, context):
@@ -333,7 +397,7 @@ def add_CloudletsAPIServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class CloudletsAPI(object):
-    """Методы Cloudlets Service, которыми пользуется API Gateway
+    """Cloudlets Service methods used by the API Gateway
     """
 
     @staticmethod
@@ -354,7 +418,7 @@ class CloudletsAPI(object):
 
 
 class SchedulingAPIStub(object):
-    """Методы Scheduling Service, которыми пользуется API Gateway
+    """Scheduling Service methods used by the API Gateway
     """
 
     def __init__(self, channel):
@@ -381,7 +445,7 @@ class SchedulingAPIStub(object):
 
 
 class SchedulingAPIServicer(object):
-    """Методы Scheduling Service, которыми пользуется API Gateway
+    """Scheduling Service methods used by the API Gateway
     """
 
     def CreateCluster(self, request, context):
@@ -428,7 +492,7 @@ def add_SchedulingAPIServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class SchedulingAPI(object):
-    """Методы Scheduling Service, которыми пользуется API Gateway
+    """Scheduling Service methods used by the API Gateway
     """
 
     @staticmethod

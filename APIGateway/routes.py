@@ -50,6 +50,39 @@ def add_user():
         return {'message': response.status.message}, response.status.code
 
 
+@app.route('/user/<string:username>', methods=['PUT', 'PATCH'])
+@jwt_required
+def update_user(username):
+    claims = get_jwt_claims()
+    admin = True if request.values.get('admin', type=int) == 1 else False
+    if (username != get_jwt_identity() or admin != claims['admin']) and not claims['admin']:
+        abort(403)
+
+    if request.method == 'PUT':
+        # Sets the full user name and administrator rights
+        response = users_service_stub.UpdateUserData(api_gateway_pb2.User(username=username,
+                                                                          first_name=request.values.get('first_name', type=str),
+                                                                          last_name=request.values.get('last_name', type=str),
+                                                                          admin=admin))
+        if response.status.code == 200 and username == get_jwt_identity():
+            user = User(username=response.user.username,
+                        first_name=response.user.first_name,
+                        last_name=response.user.last_name,
+                        admin=response.user.admin)
+            access_token = create_access_token(identity=user)
+            return {'message': response.status.message,
+                    'access_token': access_token}, response.status.code
+        else:
+            return {'message': response.status.message}, response.status.code
+    elif request.method == 'PATCH':
+        # Sets new user password
+        response = users_service_stub.UpdatePassword(api_gateway_pb2.User(username=username,
+                                                                          password=request.values.get('password', type=str)))
+        return {'message': response.message}, response.code
+    else:
+        abort(405)
+
+
 # Returns information about the user
 @app.route('/user')
 @jwt_required
