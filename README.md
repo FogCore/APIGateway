@@ -78,3 +78,5 @@ Method for getting JWT access token by username and password.
 2. **code**:401, {**message**: "Incorrect username or password."}
 3. **code**:422, {**message**: "Username and password parameters are required."}
 
+
+**The reported project was supported by RFBR, research project No. 18-07-01224**
